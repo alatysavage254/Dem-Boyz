@@ -1,0 +1,59 @@
+body{
+    margin: 20px;
+    padding: 0;
+    background: #333;
+}
+
+/* .container {
+    max-width: 760px;
+    margin: auto;
+    border: #fff solid 3px;
+    background: #fff;
+
+} */
+
+.container {
+    max-width: 760px;
+    margin: auto;
+    border: #fff solid 3px;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.main-img img{
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+.imgs {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr ;
+    grid-gap: 5px;
+}
+
+/* For devices smaller than 600px */
+@media only screen and (max-width: 600px) {
+    .imgs {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* For devices larger than 600px but smaller than 900px */
+@media only screen and (min-width: 601px) and (max-width: 900px) {
+    .imgs {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+/* Fade in animation */
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+.fade-in {
+    opacity: 0;
+    animation: fadeIn ease-in 1 forwards;
+}
