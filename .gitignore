@@ -1,0 +1,14 @@
+# Ignore nested copilot workspace (contains its own git directory)
+copilot/
+
+# Node/npm
+node_modules/
+npm-debug.log
+package-lock.json
+
+# Vite / build
+dist/
+client/dist/
+
+# OS
+.DS_Store
