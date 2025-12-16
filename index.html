@@ -3,43 +3,123 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ThumbGallery</title>
+    <meta name="description" content="Professional Photo Gallery - Browse our stunning collection with smooth animations and intuitive controls.">
+    <title>Dem Boyz Gallery</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div class="container">
-        <div id="main-img">
-            <img src="img/img1.jpg" alt="" id="current">
+    <!-- Theme toggle -->
+    <div class="theme-toggle-container">
+        <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark/light mode" title="Toggle theme">
+            <span class="theme-icon">🌙</span>
+        </button>
+    </div>
+
+    <!-- Help button -->
+    <button id="help-btn" class="help-btn" aria-label="Show keyboard shortcuts" title="Press ? for help">?</button>
+
+    <!-- Help Modal -->
+    <div id="help-modal" class="modal help-modal">
+        <div class="modal-content">
+            <button class="modal-close" aria-label="Close help">&times;</button>
+            <h2>Keyboard Shortcuts</h2>
+            <div class="shortcuts-grid">
+                <div class="shortcut">
+                    <kbd>←</kbd> <span>Previous image</span>
+                </div>
+                <div class="shortcut">
+                    <kbd>→</kbd> <span>Next image</span>
+                </div>
+                <div class="shortcut">
+                    <kbd>Space</kbd> <span>Play/Pause</span>
+                </div>
+                <div class="shortcut">
+                    <kbd>?</kbd> <span>Show help</span>
+                </div>
+                <div class="shortcut">
+                    <kbd>Enter</kbd> <span>Open lightbox</span>
+                </div>
+                <div class="shortcut">
+                    <kbd>Esc</kbd> <span>Close lightbox</span>
+                </div>
+                <div class="shortcut">
+                    <kbd>S</kbd> <span>Shuffle/Unshuffle</span>
+                </div>
+                <div class="shortcut">
+                    <kbd>T</kbd> <span>Cycle transitions</span>
+                </div>
+            </div>
         </div>
     </div>
 
-
-    <div class="imgs">
-        
-        <img src="img/img2.jpg" width="600" height="400">
-        <img src="img/img3.jpg" width="600" height="400">
-        <img src="img/img4.jpg" width="600" height="400">
-        <img src="img/img5.jpg" width="600" height="400">
-        <img src="img/img6.jpg" width="600" height="400"> 
-        <img src="img/img7.jpg" width="600" height="400">
-        <img src="img/img8.jpg" width="600" height="400">
-        <img src="img/img9.jpg" width="600" height="400">
-        <img src="img/img10.jpg" width="600" height="400">
-        <img src="img/img11.jpg" width="600" height="400">
-        <img src="img/img12.jpg" width="600" height="400">
-        <img src="img/img13.jpg" width="600" height="400">
-        <img src="img/img14.jpg" width="600" height="400">
-        <img src="img/img15.jpg" width="600" height="400">
-        <img src="img/img16.jpg" width="600" height="400">
-        <img src="img/img17.jpg" width="600" height="400">
-    
-        
-        
-        
-
+    <!-- Lightbox Modal -->
+    <div id="lightbox-modal" class="modal lightbox-modal">
+        <button class="modal-close" aria-label="Close lightbox">&times;</button>
+        <button class="lightbox-nav lightbox-prev" aria-label="Previous image">❮</button>
+        <div class="lightbox-content">
+            <img id="lightbox-img" src="" alt="Full-screen gallery image">
+            <div class="lightbox-caption" id="lightbox-caption"></div>
+        </div>
+        <button class="lightbox-nav lightbox-next" aria-label="Next image">❯</button>
+        <div class="lightbox-counter" id="lightbox-counter"></div>
     </div>
 
+    <!-- Main container -->
+    <div class="container">
+        <div id="main-img">
+            <img src="img/img1.jpg" alt="Main gallery image" id="current">
+            <div class="slideshow-controls">
+                <button id="play-pause" class="control-btn" aria-label="Play/Pause slideshow" title="Space to play/pause">
+                    <span class="pause-icon">⏸</span>
+                    <span class="play-icon" style="display:none;">▶</span>
+                </button>
+                <button id="shuffle-btn" class="control-btn" aria-label="Shuffle images" title="S to shuffle">
+                    <span>🔀</span>
+                </button>
+                <button id="transition-btn" class="control-btn" aria-label="Change transition" title="T to cycle">
+                    <span>✨</span>
+                </button>
+                <button id="fullscreen-btn" class="control-btn" aria-label="Open in lightbox" title="Enter to open">
+                    <span>⛶</span>
+                </button>
+            </div>
+            <div class="progress-bar"></div>
+            <div class="image-counter" id="image-counter">1 / 16</div>
+        </div>
+    </div>
+
+    <section aria-label="Thumbnail gallery">
+        <div class="thumbnails-wrapper">
+            <button class="thumbnail-nav thumbnail-prev" aria-label="Scroll thumbnails left">‹</button>
+            <div class="imgs-container">
+                <div class="imgs" id="thumbnails-grid">
+                    
+                    <img src="img/img1.jpg" alt="Gallery thumbnail 1" width="600" height="400" data-index="0">
+                    <img src="img/img2.jpg" alt="Gallery thumbnail 2" width="600" height="400" data-index="1">
+                    <img src="img/img3.jpg" alt="Gallery thumbnail 3" width="600" height="400" data-index="2">
+                    <img src="img/img4.jpg" alt="Gallery thumbnail 4" width="600" height="400" data-index="3">
+                    <img src="img/img5.jpg" alt="Gallery thumbnail 5" width="600" height="400" data-index="4">
+                    <img src="img/img6.jpg" alt="Gallery thumbnail 6" width="600" height="400" data-index="5">
+                    <img src="img/img7.jpg" alt="Gallery thumbnail 7" width="600" height="400" data-index="6">
+                    <img src="img/img8.jpg" alt="Gallery thumbnail 8" width="600" height="400" data-index="7">
+                    <img src="img/img9.jpg" alt="Gallery thumbnail 9" width="600" height="400" data-index="8">
+                    <img src="img/img10.jpg" alt="Gallery thumbnail 10" width="600" height="400" data-index="9">
+                    <img src="img/img11.jpg" alt="Gallery thumbnail 11" width="600" height="400" data-index="10">
+                    <img src="img/img12.jpg" alt="Gallery thumbnail 12" width="600" height="400" data-index="11">
+                    <img src="img/img13.jpg" alt="Gallery thumbnail 13" width="600" height="400" data-index="12">
+                    <img src="img/img14.jpg" alt="Gallery thumbnail 14" width="600" height="400" data-index="13">
+                    <img src="img/img15.jpg" alt="Gallery thumbnail 15" width="600" height="400" data-index="14">
+                    <img src="img/img16.jpg" alt="Gallery thumbnail 16" width="600" height="400" data-index="15">
+                    <img src="img/img17.jpg" alt="Gallery thumbnail 17" width="600" height="400" data-index="16">
+                     <img src="img/img20.png" alt="Gallery thumbnail 17" width="600" height="400" data-index="17"> 
+                     <img src="img/img21.jpg" alt="Gallery thumbnail 17" width="600" height="400" data-index="16">
+                
+                </div>
+            </div>
+            <button class="thumbnail-nav thumbnail-next" aria-label="Scroll thumbnails right">›</button>
+        </div>
+    </section>
 
 <script src="main.js"></script>
     
