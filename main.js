@@ -1,17 +1,49 @@
-
-// Gallery State
+// Enhanced Gallery State with new features
 const galleryState = {
     current: document.querySelector('#current'),
-    imgs: Array.from(document.querySelectorAll('.imgs img')),
+    imgs: [],
     currentIndex: 0,
     isPlaying: true,
     slideshowInterval: null,
     isShuffled: false,
     originalOrder: [],
-    transitionMode: 'fade', // fade, slide, zoom, blur
+    transitionMode: 'fade',
     touchStartX: 0,
     touchStartY: 0,
+    isLoading: false,
+    preloaded: new Set()
 };
+
+// Initialize images with lazy loading
+function initImages() {
+    const imgElements = document.querySelectorAll('.imgs img');
+    galleryState.imgs = Array.from(imgElements);
+    
+    // Add loading state
+    galleryState.imgs.forEach(img => {
+        img.loading = 'lazy';
+        img.decoding = 'async';
+        img.setAttribute('aria-label', `Thumbnail ${img.alt || 'image'}`);
+    });
+    
+    // Set initial preload
+    preloadAdjacentImages(0);
+}
+
+// Preload adjacent images for smooth transitions
+function preloadAdjacentImages(currentIndex) {
+    const preloadCount = 2; // Number of images to preload on each side
+    const start = Math.max(0, currentIndex - preloadCount);
+    const end = Math.min(galleryState.imgs.length - 1, currentIndex + preloadCount);
+    
+    for (let i = start; i <= end; i++) {
+        if (!galleryState.preloaded.has(i)) {
+            const img = new Image();
+            img.src = galleryState.imgs[i].src;
+            galleryState.preloaded.add(i);
+        }
+    }
+}
 
 // Preload images
 function preloadImages() {
@@ -147,22 +179,51 @@ function stopSlideshow() {
     clearInterval(galleryState.slideshowInterval);
 }
 
-function switchImage(index) {
-    const targetImg = galleryState.imgs[index];
-    if (!targetImg) return;
-
-    clearActiveThumbs();
-
-    if (galleryState.current) {
-        galleryState.current.classList.remove('fade-in', 'transition-fade', 'transition-slide', 'transition-zoom', 'transition-blur');
-        void galleryState.current.offsetWidth;
-        galleryState.current.src = targetImg.src;
-        galleryState.current.classList.add(`transition-${galleryState.transitionMode}`, 'fade-in');
-    }
-
-    updateThumbnail(index);
-    updateImageCounter();
-    updateLightboxCounter();
+async function switchImage(index) {
+    if (index < 0) index = galleryState.imgs.length - 1;
+    if (index >= galleryState.imgs.length) index = 0;
+    if (galleryState.isLoading) return;
+    
+    galleryState.isLoading = true;
+    const loadingIndicator = document.getElementById('loading-indicator');
+    if (loadingIndicator) loadingIndicator.style.display = 'block';
+    
+    galleryState.currentIndex = index;
+    const newImage = galleryState.imgs[index];
+    
+    // Preload next set of images
+    preloadAdjacentImages(index);
+    
+    // Apply transition effect
+    galleryState.current.classList.add('transition-out');
+    
+    // Wait for transition to complete
+    await new Promise(resolve => setTimeout(resolve, 300));
+    
+    // Load new image
+    const img = new Image();
+    img.onload = () => {
+        galleryState.current.src = newImage.src;
+        galleryState.current.alt = newImage.alt || 'Gallery image';
+        galleryState.current.classList.remove('transition-out');
+        galleryState.current.classList.add('transition-in');
+        
+        // Update UI
+        updateThumbnail(index);
+        updateImageCounter();
+        updateBackgroundBasedOnImage();
+        
+        // Hide loading indicator
+        if (loadingIndicator) loadingIndicator.style.display = 'none';
+        galleryState.isLoading = false;
+        
+        // Remove transition class after completion
+        setTimeout(() => {
+            galleryState.current.classList.remove('transition-in');
+        }, 300);
+    };
+    
+    img.src = newImage.src; // Start loading
 }
 
 function updateThumbnail(index) {

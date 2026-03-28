@@ -27,3 +27,4 @@ client/dist/
 # Vercel
 .vercel/
 
+.vercel
