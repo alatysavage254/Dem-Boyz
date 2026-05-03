@@ -1,0 +1,333 @@
+/* Modal Base */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(var(--blur-lg));
+    z-index: var(--z-modal);
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity var(--transition-base) var(--ease-out);
+}
+
+.modal.active {
+    display: flex;
+    opacity: 1;
+    animation: fadeInModal var(--transition-base) var(--ease-out);
+}
+
+@keyframes fadeInModal {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.modal-content {
+    background: var(--color-bg-secondary);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-2xl);
+    padding: var(--space-10);
+    max-width: 90%;
+    width: 600px;
+    max-height: 90vh;
+    overflow-y: auto;
+    backdrop-filter: blur(var(--blur-xl));
+    box-shadow: var(--shadow-2xl);
+    position: relative;
+    animation: slideUpModal var(--transition-slow) var(--ease-spring);
+}
+
+@keyframes slideUpModal {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.modal-close {
+    position: absolute;
+    top: var(--space-4);
+    right: var(--space-4);
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-full);
+    background: var(--color-surface);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--color-text-primary);
+    font-size: var(--font-size-2xl);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all var(--transition-base) var(--ease-spring);
+    line-height: 1;
+}
+
+.modal-close:hover {
+    background: var(--color-surface-hover);
+    border-color: rgba(255, 255, 255, 0.2);
+    transform: rotate(90deg);
+}
+
+.modal-close:active {
+    transform: rotate(90deg) scale(0.9);
+}
+
+/* Help Modal */
+.help-modal .modal-content h2 {
+    margin: 0 0 var(--space-8) 0;
+    color: var(--color-text-primary);
+    text-align: center;
+    font-size: var(--font-size-3xl);
+    font-weight: var(--font-weight-semibold);
+}
+
+.shortcuts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--space-4);
+}
+
+.shortcut {
+    background: var(--color-surface);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--radius-lg);
+    padding: var(--space-4);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-3);
+    transition: all var(--transition-base) var(--ease-out);
+}
+
+.shortcut:hover {
+    background: var(--color-surface-hover);
+    border-color: rgba(255, 255, 255, 0.15);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.shortcut kbd {
+    background: var(--gradient-accent);
+    color: white;
+    padding: var(--space-2) var(--space-4);
+    border-radius: var(--radius-md);
+    font-weight: var(--font-weight-semibold);
+    font-size: var(--font-size-sm);
+    font-family: var(--font-mono);
+    box-shadow: var(--shadow-sm);
+    min-width: 48px;
+    text-align: center;
+}
+
+.shortcut span {
+    font-size: var(--font-size-sm);
+    text-align: center;
+    color: var(--color-text-secondary);
+}
+
+/* Lightbox Modal */
+.lightbox-modal {
+    background: rgba(0, 0, 0, 0.95);
+}
+
+.lightbox-content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-4);
+    max-width: 95vw;
+    max-height: 95vh;
+}
+
+.lightbox-modal img {
+    max-width: 90vw;
+    max-height: 85vh;
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-2xl);
+    animation: zoomInImage var(--transition-slower) var(--ease-spring);
+    object-fit: contain;
+}
+
+@keyframes zoomInImage {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.lightbox-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 56px;
+    height: 56px;
+    border-radius: var(--radius-full);
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(var(--blur-md));
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    font-size: var(--font-size-3xl);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all var(--transition-base) var(--ease-spring);
+    z-index: var(--z-dropdown);
+}
+
+.lightbox-prev {
+    left: var(--space-6);
+}
+
+.lightbox-next {
+    right: var(--space-6);
+}
+
+.lightbox-nav:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: var(--shadow-glow);
+}
+
+.lightbox-nav:active {
+    transform: translateY(-50%) scale(0.95);
+}
+
+.lightbox-counter {
+    position: absolute;
+    bottom: var(--space-6);
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(var(--blur-md));
+    color: white;
+    padding: var(--space-2) var(--space-5);
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.lightbox-caption {
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-sm);
+    text-align: center;
+    max-width: 500px;
+}
+
+/* Command Palette */
+#command-palette {
+    background: rgba(0, 0, 0, 0.85);
+}
+
+#command-palette .modal-content {
+    width: 640px;
+    padding: 0;
+    overflow: hidden;
+}
+
+.command-header {
+    padding: var(--space-5);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+#command-input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    color: var(--color-text-primary);
+    font-size: var(--font-size-lg);
+    font-family: var(--font-sans);
+    padding: var(--space-2) 0;
+    outline: none;
+}
+
+#command-input::placeholder {
+    color: var(--color-text-muted);
+}
+
+#command-results {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.command-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-4) var(--space-5);
+    cursor: pointer;
+    transition: all var(--transition-fast) var(--ease-out);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.command-item:hover {
+    background: var(--color-surface-hover);
+}
+
+.command-name {
+    font-size: var(--font-size-base);
+    color: var(--color-text-primary);
+}
+
+.command-key {
+    background: var(--color-surface);
+    color: var(--color-text-secondary);
+    padding: var(--space-1) var(--space-3);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-xs);
+    font-family: var(--font-mono);
+    font-weight: var(--font-weight-medium);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Responsive Modals */
+@media (max-width: 640px) {
+    .modal-content {
+        width: 95%;
+        padding: var(--space-6);
+        border-radius: var(--radius-xl);
+    }
+    
+    .shortcuts-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-3);
+    }
+    
+    .lightbox-nav {
+        width: 48px;
+        height: 48px;
+        font-size: var(--font-size-2xl);
+    }
+    
+    .lightbox-prev {
+        left: var(--space-4);
+    }
+    
+    .lightbox-next {
+        right: var(--space-4);
+    }
+    
+    #command-palette .modal-content {
+        width: 95%;
+    }
+}

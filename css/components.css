@@ -1,0 +1,365 @@
+/* Component Styles */
+
+/* Theme Toggle */
+.theme-toggle-container {
+    position: fixed;
+    top: var(--space-6);
+    right: var(--space-6);
+    z-index: var(--z-fixed);
+}
+
+.theme-toggle {
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-full);
+    background: var(--gradient-surface);
+    backdrop-filter: blur(var(--blur-lg));
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--color-text-primary);
+    font-size: var(--font-size-2xl);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all var(--transition-base) var(--ease-spring);
+    box-shadow: var(--shadow-md);
+}
+
+.theme-toggle:hover {
+    background: var(--color-surface-hover);
+    border-color: rgba(255, 255, 255, 0.2);
+    transform: scale(1.05);
+    box-shadow: var(--shadow-lg), var(--shadow-glow);
+}
+
+.theme-toggle:active {
+    transform: scale(0.95);
+}
+
+.theme-toggle.rotating {
+    animation: rotate360 var(--transition-slower) var(--ease-spring);
+}
+
+@keyframes rotate360 {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Help Button */
+.help-btn {
+    position: fixed;
+    bottom: var(--space-8);
+    right: var(--space-8);
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-full);
+    background: var(--gradient-surface);
+    backdrop-filter: blur(var(--blur-lg));
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--color-text-primary);
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-bold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all var(--transition-base) var(--ease-spring);
+    box-shadow: var(--shadow-md);
+    z-index: var(--z-fixed);
+}
+
+.help-btn:hover {
+    background: var(--color-surface-hover);
+    border-color: rgba(255, 255, 255, 0.2);
+    transform: scale(1.05);
+    box-shadow: var(--shadow-lg), var(--shadow-glow);
+}
+
+.help-btn:active {
+    transform: scale(0.95);
+}
+
+/* Container */
+.container {
+    max-width: 1200px;
+    margin: var(--space-16) auto var(--space-12);
+    padding: var(--space-10);
+    background: var(--gradient-surface);
+    backdrop-filter: blur(var(--blur-xl));
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--radius-2xl);
+    box-shadow: var(--shadow-2xl);
+    animation: slideUp var(--transition-slower) var(--ease-spring);
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Main Image Container */
+#main-img {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+#main-img img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-xl);
+    cursor: pointer;
+    transition: all var(--transition-slow) var(--ease-spring);
+    display: block;
+    background: var(--color-bg-tertiary);
+}
+
+#main-img img:hover {
+    transform: scale(1.01);
+    box-shadow: var(--shadow-2xl), var(--shadow-glow-lg);
+}
+
+/* Image Transitions */
+#main-img img.transition-out {
+    opacity: 0;
+    transform: scale(0.98);
+}
+
+#main-img img.transition-in {
+    animation-duration: var(--transition-slower);
+    animation-timing-function: var(--ease-spring);
+    animation-fill-mode: both;
+}
+
+#main-img img.transition-fade {
+    animation-name: transitionFade;
+}
+
+#main-img img.transition-slide {
+    animation-name: transitionSlide;
+}
+
+#main-img img.transition-zoom {
+    animation-name: transitionZoom;
+}
+
+#main-img img.transition-blur {
+    animation-name: transitionBlur;
+}
+
+@keyframes transitionFade {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes transitionSlide {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes transitionZoom {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes transitionBlur {
+    from {
+        opacity: 0;
+        filter: blur(10px);
+    }
+    to {
+        opacity: 1;
+        filter: blur(0);
+    }
+}
+
+/* Image Counter */
+.image-counter {
+    position: absolute;
+    top: var(--space-4);
+    right: var(--space-4);
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(var(--blur-md));
+    color: white;
+    padding: var(--space-2) var(--space-4);
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    z-index: var(--z-dropdown);
+    animation: slideInRight var(--transition-slower) var(--ease-spring) 0.2s both;
+    transition: transform var(--transition-fast) var(--ease-out);
+}
+
+.image-counter.pulse {
+    animation: pulse var(--transition-base) var(--ease-out);
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+/* Slideshow Controls */
+.slideshow-controls {
+    position: absolute;
+    bottom: var(--space-5);
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: var(--space-3);
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(var(--blur-lg));
+    padding: var(--space-3) var(--space-5);
+    border-radius: var(--radius-full);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    z-index: var(--z-dropdown);
+    animation: slideUpControls var(--transition-slower) var(--ease-spring) 0.4s both;
+}
+
+@keyframes slideUpControls {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+.control-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-full);
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: white;
+    font-size: var(--font-size-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all var(--transition-base) var(--ease-spring);
+    backdrop-filter: blur(var(--blur-sm));
+}
+
+.control-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+}
+
+.control-btn:active {
+    transform: scale(0.95);
+}
+
+.control-btn.active {
+    background: var(--gradient-accent);
+    border-color: var(--color-accent-primary);
+    box-shadow: var(--shadow-glow);
+}
+
+.control-btn.spinning {
+    animation: spin var(--transition-slower) var(--ease-spring);
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Progress Bar */
+.progress-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    background: var(--gradient-accent);
+    border-radius: 0 0 var(--radius-xl) var(--radius-xl);
+    width: 0%;
+    transition: width 100ms linear;
+    z-index: var(--z-base);
+}
+
+
+/* Favorite Button */
+#favorite-btn .favorite-icon {
+    transition: transform var(--transition-fast) var(--ease-spring);
+}
+
+#favorite-btn.active {
+    background: var(--gradient-accent);
+    border-color: var(--color-accent-primary);
+}
+
+#favorite-btn.active .favorite-icon::before {
+    content: '♥';
+}
+
+#favorite-btn:hover .favorite-icon {
+    transform: scale(1.2);
+}
+
+/* Footer */
+.site-footer {
+    text-align: center;
+    padding: var(--space-8) var(--space-4);
+    color: var(--color-text-tertiary);
+    font-size: var(--font-size-sm);
+}
+
+.site-footer p {
+    margin: 0;
+}

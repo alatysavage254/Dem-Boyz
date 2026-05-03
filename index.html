@@ -2,14 +2,27 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="description" content="Professional Photo Gallery - Browse our stunning collection with smooth animations and intuitive controls.">
     <meta name="theme-color" content="#0f1724">
+    <meta name="color-scheme" content="dark light">
     <title>Dem Boyz Gallery</title>
-    <link rel="stylesheet" href="style.css">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/thumbnails.css">
+    <link rel="stylesheet" href="css/modals.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    
+    <!-- Preconnect for performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Optional: Inter font for better typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
     <link rel="manifest" href="manifest.json">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
 </head>
@@ -60,6 +73,12 @@
                 <div class="shortcut">
                     <kbd>T</kbd> <span>Cycle transitions</span>
                 </div>
+                <div class="shortcut">
+                    <kbd>K</kbd> <span>Command palette</span>
+                </div>
+                <div class="shortcut">
+                    <kbd>F</kbd> <span>Toggle favorite</span>
+                </div>
             </div>
         </div>
     </div>
@@ -81,7 +100,7 @@
         <div id="main-img">
             <img src="img/img1.jpg" alt="Main gallery image" id="current">
             <div class="slideshow-controls">
-                <button id="play-pause" class="control-btn" aria-label="Play/Pause slideshow" title="Space to play/pause">
+                <button id="play-pause" class="control-btn" aria-label="Pause slideshow" title="Space to play/pause">
                     <span class="pause-icon">⏸</span>
                     <span class="play-icon" style="display:none;">▶</span>
                 </button>
@@ -91,12 +110,15 @@
                 <button id="transition-btn" class="control-btn" aria-label="Change transition" title="T to cycle">
                     <span>✨</span>
                 </button>
+                <button id="favorite-btn" class="control-btn" aria-label="Toggle favorite" title="F to favorite" aria-pressed="false">
+                    <span class="favorite-icon">♡</span>
+                </button>
                 <button id="fullscreen-btn" class="control-btn" aria-label="Open in lightbox" title="Enter to open">
                     <span>⛶</span>
                 </button>
             </div>
             <div class="progress-bar"></div>
-            <div class="image-counter" id="image-counter">1 / 16</div>
+            <div class="image-counter" id="image-counter">1 / 19</div>
         </div>
     </div>
 
@@ -134,9 +156,27 @@
     </section>
 
     <footer class="site-footer">
-        <p> 2024 Dem Boyz Gallery. All rights reserved.</p>
+        <p>© <span id="copyright-year"></span> Dem Boyz Gallery. All rights reserved.</p>
     </footer>
 
-    <script src="main.js"></script>
+    <!-- Command Palette -->
+    <div id="command-palette" class="modal">
+        <div class="modal-content">
+            <button class="modal-close" aria-label="Close command palette">&times;</button>
+            <div class="command-header">
+                <input 
+                    type="text" 
+                    id="command-input" 
+                    placeholder="Type a command or search..."
+                    aria-label="Command search"
+                    autocomplete="off"
+                >
+            </div>
+            <div id="command-results"></div>
+        </div>
+    </div>
+
+    <!-- Scripts (ES6 Modules) -->
+    <script type="module" src="js/app.js"></script>
 </body>
 </html>
